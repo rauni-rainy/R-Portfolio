@@ -215,27 +215,27 @@ export const reasoningPrompts = [
   {
     title: "Why Visibility API over focus and blur",
     body:
-      "[RAUNAK_NOTE] Explain why document.visibilityState gave a more direct signal for tab-level cheating behavior than focus or blur alone, especially when browser chrome, devtools, and OS focus shifts can create noisy events."
+      "Using `blur` alone is extremely noisy. Clicking browser extensions, opening devtools, or interacting with OS notifications triggers a `blur` event, leading to false positives. The Page Visibility API (`document.hidden`) provides a much higher-fidelity signal: it only triggers when the user genuinely switches tabs or minimizes the browser, reliably capturing actual abandonment."
   },
   {
     title: "Why 10 seconds, not instant",
     body:
-      "[RAUNAK_NOTE] Explain the fairness tradeoff: accidental switches, lag, and accessibility realities needed a grace period, but the window still had to be short enough to protect contest integrity."
+      "Zero-tolerance systems fail in the real world. Sudden OS pop-ups, accidental keystrokes, or assistive tech interruptions demand a grace period to prevent unfair disqualifications. A 10-second timer strikes the perfect balance: it gives legitimate users enough time to recover focus, while remaining too brief for someone to effectively Google answers and process the results."
   },
   {
     title: "The keyboard-switching edge case",
     body:
-      "[RAUNAK_NOTE] Describe the edge case where users can leave the contest through keyboard shortcuts or browser chrome interactions, and how the system treated visibility and blur signals together."
+      "Users can circumvent tab-visibility tracking by snapping windows side-by-side or using multiple monitors. By intelligently combining `visibilitychange` with a structured `blur` listener that tracks focus-lost states, the engine successfully captures scenarios where the contest tab remains visually open, but the user's active keyboard context has shifted to an unauthorized application."
   },
   {
     title: "Why auto-submit had to be server-side",
     body:
-      "[RAUNAK_NOTE] Explain why disabling the UI on the client was not enough: a determined user can tamper with client state, so the server needed to validate JWT claims and finalize the attempt."
+      "Client-side enforcement is merely a suggestion to a motivated attacker. Disabling inputs or freezing the UI via React state is trivial to bypass by overriding local variables or blocking scripts. True security mandates a server-side lock: upon a violation threshold, the client fires a token-authenticated payload to instantly close the session on the backend, rendering any subsequent tampering permanently invalid."
   },
   {
     title: "What this says about my engineering style",
     body:
-      "[RAUNAK_NOTE] Connect the system back to your portfolio story: practical UX judgment, security-aware implementation, and product thinking under real contest pressure."
+      "I don't just write code; I architect systems that respect both the user and the business logic. This engine demonstrates my philosophy of pragmatic engineering—combining strict backend validation with forgiving, empathetic frontend UX. It proves my ability to navigate the complex intersection of browser quirks, edge cases, and product integrity to deliver robust, production-grade features."
   }
 ] as const;
 
