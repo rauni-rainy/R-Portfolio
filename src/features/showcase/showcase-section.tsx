@@ -50,7 +50,7 @@ export function ShowcaseSection() {
   const setMode = useThemeStore((state) => state.setMode);
 
   // Default to doctor if neutral is selected (neutral doesn't have a mock UI)
-  const activeMode = mode === "neutral" ? "doctor" : mode;
+  const activeMode = (mode as string) === "neutral" ? "doctor" : mode;
   const currentData = showcaseData[activeMode];
 
   const renderActiveUI = () => {
@@ -72,7 +72,7 @@ export function ShowcaseSection() {
       {/* Header */}
       <div className="text-center mb-16 relative z-10 max-w-2xl mx-auto">
         <h2 className="font-['Cormorant_Garamond'] italic text-5xl md:text-6xl text-[#f5f0eb] mb-4">
-          I speak every client's visual language.
+          I speak every client&apos;s visual language.
         </h2>
         <p className="font-['DM_Sans'] font-light text-[#f5f0eb]/50 text-lg">
           Select a domain. Watch the interface become native to it.
