@@ -7,7 +7,7 @@ import { CursorPhysics } from "@/components/cursor-physics";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Raunak Prasad | Polymorphic Studio",
+  title: "Raunak Prasad | Portfolio",
   description:
     "A developer portfolio that shifts its design language for clinics, fashion houses, magazines, electronics shops, and AI labs.",
   authors: [{ name: "Raunak Prasad" }],
