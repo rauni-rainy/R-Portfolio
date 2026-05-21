@@ -82,7 +82,7 @@ function ProjectPanel({
 
   return (
     <article
-      className="relative flex h-screen min-w-[100vw] items-center overflow-hidden px-page py-12 text-foreground bg-transparent"
+      className="relative flex min-h-[100svh] lg:h-screen w-full lg:min-w-[100vw] items-center overflow-visible lg:overflow-hidden px-page py-24 lg:py-12 text-foreground bg-transparent"
       data-project={project.id}
       data-studio-mode={selectedKey}
       onMouseEnter={() => setIsHovered(true)}
@@ -92,7 +92,7 @@ function ProjectPanel({
     >
       <motion.div
         style={{ y, opacity }}
-        className="relative mx-auto grid w-full max-w-container gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.85fr)] lg:items-center bg-transparent"
+        className="relative mx-auto grid w-full max-w-container gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.85fr)] lg:items-center bg-transparent mobile-no-transform mobile-opacity-100"
       >
         <div>
           <div className="mb-6 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase leading-none tracking-wider text-muted-foreground">
@@ -232,11 +232,18 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative bg-transparent text-foreground"
-      style={{ height: `${projects.length * 100}vh` }}
+      className="relative bg-transparent text-foreground h-auto lg:h-[var(--projects-height)]"
+      style={{ '--projects-height': `${projects.length * 100}vh` } as React.CSSProperties}
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 border-b border-border/20 bg-background/5 px-page py-4 backdrop-blur-sm">
+      <style dangerouslySetInnerHTML={{__html: `
+        @media (max-width: 1023px) {
+          #projects { height: auto !important; }
+          .mobile-no-transform { transform: none !important; }
+          .mobile-opacity-100 { opacity: 1 !important; }
+        }
+      `}} />
+      <div className="relative lg:sticky lg:top-0 h-auto lg:h-screen overflow-visible lg:overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 hidden lg:block border-b border-border/20 bg-background/5 px-page py-4 backdrop-blur-sm">
           <div className="mx-auto flex max-w-container items-center justify-between gap-5">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-wider text-accent">
@@ -255,7 +262,7 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        <motion.div className="flex h-full will-change-transform" style={{ x }}>
+        <motion.div className="flex flex-col lg:flex-row h-full will-change-transform mobile-no-transform" style={{ x }}>
           {projects.map((project, index) => (
             <ProjectPanel
               key={project.id}

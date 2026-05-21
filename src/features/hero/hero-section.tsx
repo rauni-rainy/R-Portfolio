@@ -123,14 +123,14 @@ export function HeroSection() {
       </div>
 
       {/* 3. Impressive bottom text */}
-      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 flex justify-center items-center">
+      <div className="absolute bottom-28 md:bottom-10 left-1/2 z-10 -translate-x-1/2 flex justify-center items-center">
         <span className="text-[10px] md:text-[12px] font-mono tracking-[0.5em] uppercase text-foreground/40 font-semibold text-center whitespace-nowrap">
           ENGINEER • DESIGNER • POLYMATH
         </span>
       </div>
 
       {/* 4. Bottom-right corner: GitHub + LinkedIn icons */}
-      <div className="absolute bottom-8 right-8 flex items-center gap-4 opacity-40 hover:opacity-80 transition-opacity duration-300">
+      <div className="absolute bottom-12 md:bottom-8 right-1/2 translate-x-1/2 md:right-8 md:translate-x-0 flex items-center gap-4 opacity-40 hover:opacity-80 transition-opacity duration-300">
         <a
           href="https://github.com/rauni-rainy"
           target="_blank"
