@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=DM+Mono:wght@400&family=DM+Sans:wght@300;400&family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background: 210 17% 4%;
+  --color-foreground: 30 20% 94%;
+  --color-surface: 210 17% 8%;
+  --color-surface-elevated: 210 17% 12%;
+  --color-muted: 210 12% 16%;
+  --color-muted-foreground: 30 10% 65%;
+  --color-border: 210 10% 20%;
+  --color-accent: 36 43% 64%;
+  --color-accent-foreground: 210 17% 4%;
+  --color-accent-muted: 36 43% 15%;
+  --color-secondary: 36 43% 64%;
+  --color-secondary-foreground: 210 17% 4%;
+  --color-ring: 36 43% 64%;
+  --color-grid: 210 15% 15%;
+  --color-success: 142 70% 58%;
+  --color-warning: 42 100% 58%;
+  --color-danger: 353 85% 63%;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "DM Sans", "Inter", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --space-page-x: clamp(1.5rem, 5vw, 6rem);
+  --space-section-y: clamp(7.5rem, 12vw, 12rem);
+  --space-container: 80rem;
+  --space-rhythm: 1.5rem;
+  --space-gutter: clamp(1.25rem, 3vw, 3rem);
+  --radius-theme: 9999px;
+  --radius-small: 4px;
+  --border-hairline: 1px;
+  --ease-theme: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out-theme: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-theme: 800ms;
+  --duration-theme-slow: 1200ms;
+  --theme-switch-duration: 800ms;
+  --stagger-theme: 0.06s;
+  --reveal-y: 24px;
+  --parallax-strength: 0.08;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: transparent; /* Render over painting */
+  color: hsl(var(--color-foreground));
+  font-family: var(--font-body);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: hsl(var(--color-accent) / 0.3);
+  color: hsl(var(--color-foreground));
+}
+
+:focus-visible {
+  outline: 1px solid hsl(var(--color-accent));
+  outline-offset: 4px;
+}
+
+/* Base theme switch transitions */
+.theme-transitioning,
+.theme-transitioning body,
+.theme-transitioning * {
+  transition:
+    background-color var(--theme-switch-duration) var(--ease-theme),
+    border-color var(--theme-switch-duration) var(--ease-theme),
+    color var(--theme-switch-duration) var(--ease-theme),
+    fill var(--theme-switch-duration) var(--ease-theme),
+    stroke var(--theme-switch-duration) var(--ease-theme),
+    opacity var(--theme-switch-duration) var(--ease-theme),
+    transform var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* Background Paintings definition */
+.bg-painting-canvas {
+  position: fixed;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: -50;
+  pointer-events: none;
+  filter: url(#painterly-displacement);
+  will-change: transform;
+}
+
+/* ─── NEUTRAL / ENTRY STATE ─────────────────────────────────
+   Midnight forest. Warm gold moon-glow behind dark mountain
+   silhouettes. Deep teal atmosphere mid-distance. Black
+   foreground shadow at base. Warm amber in the upper right
+   as a secondary light-leak.
+─────────────────────────────────────────────────────────── */
+.bg-painting-neutral {
+  position: absolute;
+  inset: 0;
+  /* Background sky layer */
+  background-color: #06090d;
+  background-image:
+    /* Warm amber light-leak — upper right corner */
+    radial-gradient(ellipse 55% 40% at 82% 8%, rgba(200, 145, 60, 0.18) 0%, transparent 60%),
+    /* Moon glow — warm gold high center */
+    radial-gradient(ellipse 30% 35% at 52% 12%, rgba(220, 185, 110, 0.22) 0%, transparent 55%),
+    /* Far atmosphere — deep teal haze mid-distance */
+    radial-gradient(ellipse 120% 28% at 50% 52%, rgba(18, 72, 80, 0.55) 0%, transparent 70%),
+    /* Mid mountains — dark blue-green silhouette */
+    radial-gradient(ellipse 140% 22% at 50% 62%, rgba(8, 28, 38, 0.8) 0%, transparent 65%),
+    /* Near forest — black-green foreground mass */
+    radial-gradient(ellipse 160% 35% at 50% 95%, rgba(4, 14, 10, 0.95) 0%, transparent 70%),
+    /* Left forest depth */
+    radial-gradient(ellipse 35% 60% at 0% 75%, rgba(6, 24, 16, 0.7) 0%, transparent 60%),
+    /* Right forest depth */
+    radial-gradient(ellipse 35% 60% at 100% 75%, rgba(8, 22, 20, 0.65) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* ─── DOCTOR ─────────────────────────────────────────────────
+   Clinical morning mist. Soft overcast light from directly
+   above. Cold blue-white atmosphere. Subtle blue-grey at
+   the horizon. Clean, airy, trust-inducing.
+─────────────────────────────────────────────────────────── */
+.bg-painting-doctor {
+  position: absolute;
+  inset: 0;
+  background-color: #eaf1f5;
+  background-image:
+    /* Overhead white diffused light — clinical clarity */
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 255, 255, 0.98) 0%, transparent 65%),
+    /* Cool blue sky atmosphere at top */
+    radial-gradient(ellipse 120% 40% at 50% 5%, rgba(200, 220, 235, 0.7) 0%, transparent 60%),
+    /* Cold mist mid-layer */
+    radial-gradient(ellipse 130% 30% at 50% 48%, rgba(168, 197, 216, 0.45) 0%, transparent 70%),
+    /* Blue-grey horizon line */
+    radial-gradient(ellipse 150% 18% at 50% 65%, rgba(140, 175, 200, 0.3) 0%, transparent 65%),
+    /* Slight vignette bottom */
+    radial-gradient(ellipse 100% 40% at 50% 110%, rgba(100, 140, 165, 0.25) 0%, transparent 60%),
+    /* Left-edge subtle blue depth */
+    radial-gradient(ellipse 30% 80% at -5% 50%, rgba(168, 197, 216, 0.2) 0%, transparent 60%),
+    /* Right-edge subtle blue depth */
+    radial-gradient(ellipse 30% 80% at 105% 50%, rgba(168, 197, 216, 0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* ─── FASHION ────────────────────────────────────────────────
+   Editorial charcoal studio. Single diagonal spotlight slash
+   from upper-left, high-contrast chiaroscuro. Deep blacks
+   with muted rose blush at the contact point of light.
+─────────────────────────────────────────────────────────── */
+.bg-painting-fashion {
+  position: absolute;
+  inset: 0;
+  background-color: #0b0c0e;
+  background-image:
+    /* Primary diagonal spotlight — upper-left source */
+    radial-gradient(ellipse 45% 80% at 15% 15%, rgba(255, 248, 240, 0.09) 0%, transparent 60%),
+    /* Spotlight falloff — warm bloom on subject area */
+    radial-gradient(ellipse 55% 55% at 40% 38%, rgba(212, 160, 160, 0.11) 0%, transparent 55%),
+    /* Muted rose fill — contact point of light on surface */
+    radial-gradient(ellipse 35% 35% at 38% 42%, rgba(200, 140, 140, 0.08) 0%, transparent 50%),
+    /* Deep shadow — right side */
+    radial-gradient(ellipse 50% 100% at 105% 50%, rgba(4, 4, 5, 0.95) 0%, transparent 55%),
+    /* Deep shadow — bottom */
+    radial-gradient(ellipse 100% 40% at 50% 105%, rgba(4, 4, 5, 0.9) 0%, transparent 60%),
+    /* Subtle warm glow — background */
+    radial-gradient(ellipse 100% 60% at 50% 50%, rgba(18, 14, 14, 0.6) 0%, transparent 80%),
+    /* Faint diagonal slash line highlight */
+    linear-gradient(135deg, rgba(212, 160, 160, 0.04) 0%, transparent 35%, transparent 65%, rgba(212, 160, 160, 0.02) 100%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* ─── LITERARY ───────────────────────────────────────────────
+   Aged parchment, golden-hour window light. Warm amber and
+   ochre glow at upper-left as if afternoon sun through a
+   reading-room window. Deep ink-brown vignette corners.
+   Paper-cream in the center.
+─────────────────────────────────────────────────────────── */
+.bg-painting-literary {
+  position: absolute;
+  inset: 0;
+  background-color: #e8d5b0;
+  background-image:
+    /* Center paper cream — the light-flooded reading area */
+    radial-gradient(ellipse 70% 65% at 50% 42%, rgba(253, 248, 235, 0.92) 0%, transparent 65%),
+    /* Upper-left window: warm amber/golden-hour light source */
+    radial-gradient(ellipse 55% 50% at 8% 5%, rgba(210, 165, 70, 0.45) 0%, transparent 60%),
+    /* Secondary warm glow from upper-left window edge */
+    radial-gradient(ellipse 35% 35% at 18% 15%, rgba(235, 185, 90, 0.3) 0%, transparent 55%),
+    /* Deep ink-brown vignette — upper-right corner */
+    radial-gradient(ellipse 45% 45% at 100% 0%, rgba(55, 30, 10, 0.35) 0%, transparent 55%),
+    /* Deep ink-brown vignette — lower-left corner */
+    radial-gradient(ellipse 45% 45% at 0% 100%, rgba(55, 30, 10, 0.35) 0%, transparent 55%),
+    /* Deep ink-brown vignette — lower-right corner */
+    radial-gradient(ellipse 55% 55% at 100% 100%, rgba(60, 32, 8, 0.4) 0%, transparent 60%),
+    /* Deep ink-brown vignette — upper-left (shadow side of window) */
+    radial-gradient(ellipse 30% 40% at 0% 0%, rgba(40, 22, 5, 0.2) 0%, transparent 55%),
+    /* Mid-tone warm ochre — general parchment fill */
+    radial-gradient(ellipse 120% 50% at 50% 75%, rgba(195, 155, 85, 0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* Fine grain overlay for literary parchment texture */
+.bg-painting-literary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ─── ELECTRONICS ────────────────────────────────────────────
+   Dark PCB night. Phosphor terminal green glows in the two
+   upper corners like oscilloscope readouts. Dark navy-black
+   center. Subtle circuit-trace blue along the base.
+─────────────────────────────────────────────────────────── */
+.bg-painting-electronics {
+  position: absolute;
+  inset: 0;
+  background-color: #020305;
+  background-image:
+    /* Upper-left phosphor green glow — primary terminal */
+    radial-gradient(ellipse 40% 40% at 3% 3%, rgba(74, 222, 128, 0.18) 0%, transparent 55%),
+    /* Upper-right phosphor green glow — secondary terminal */
+    radial-gradient(ellipse 40% 40% at 97% 3%, rgba(74, 222, 128, 0.14) 0%, transparent 55%),
+    /* Lower-left faint green bleed */
+    radial-gradient(ellipse 30% 30% at 3% 97%, rgba(74, 222, 128, 0.07) 0%, transparent 50%),
+    /* Lower-right faint green bleed */
+    radial-gradient(ellipse 30% 30% at 97% 97%, rgba(74, 222, 128, 0.07) 0%, transparent 50%),
+    /* Deep navy center — the dark substrate */
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(8, 16, 35, 0.7) 0%, transparent 70%),
+    /* Blue trace light along base — PCB trace glow */
+    radial-gradient(ellipse 140% 20% at 50% 100%, rgba(30, 58, 138, 0.35) 0%, transparent 65%),
+    /* Subtle green mid-scan line */
+    radial-gradient(ellipse 120% 8% at 50% 35%, rgba(74, 222, 128, 0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* ─── AI LAB ──────────────────────────────────────────────────
+   Deep navy-black space. Central indigo nebula glow as if
+   a model inference core pulsing in the dark. Repeating
+   CSS dot starfield. Faint blue-violet atmosphere at edges.
+─────────────────────────────────────────────────────────── */
+.bg-painting-aiLab {
+  position: absolute;
+  inset: 0;
+  background-color: #030408;
+  background-image:
+    /* Central indigo nebula — the inference core */
+    radial-gradient(ellipse 50% 55% at 50% 48%, rgba(99, 102, 241, 0.22) 0%, rgba(67, 56, 202, 0.08) 45%, transparent 70%),
+    /* Inner bright core */
+    radial-gradient(ellipse 18% 20% at 50% 47%, rgba(165, 180, 252, 0.14) 0%, transparent 55%),
+    /* Upper edge — deep space blue haze */
+    radial-gradient(ellipse 140% 30% at 50% -5%, rgba(15, 23, 55, 0.6) 0%, transparent 65%),
+    /* Lower edge vignette */
+    radial-gradient(ellipse 130% 35% at 50% 108%, rgba(8, 12, 35, 0.7) 0%, transparent 65%),
+    /* Left void */
+    radial-gradient(ellipse 30% 80% at -5% 50%, rgba(5, 8, 25, 0.8) 0%, transparent 60%),
+    /* Right void */
+    radial-gradient(ellipse 30% 80% at 105% 50%, rgba(5, 8, 25, 0.8) 0%, transparent 60%),
+    /* Faint violet atmosphere */
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(20, 15, 45, 0.5) 0%, transparent 80%);
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+/* AI Lab dot starfield */
+.bg-painting-aiLab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(200, 210, 255, 0.55) 1px, transparent 1px),
+    radial-gradient(rgba(200, 210, 255, 0.3) 1px, transparent 1px),
+    radial-gradient(rgba(200, 210, 255, 0.2) 1px, transparent 1px);
+  background-size: 80px 80px, 55px 55px, 35px 35px;
+  background-position: 0 0, 27px 40px, 14px 20px;
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* AI Lab inner nebula shimmer */
+.bg-painting-aiLab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 25% 28% at 50% 48%, rgba(129, 140, 248, 0.12) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  animation: nebula-pulse 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes nebula-pulse {
+  from { opacity: 0.6; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.08); }
+}
+
+/* ─── Theme visibility toggles ─────────────────────────────── */
+[data-theme="neutral"] .bg-painting-neutral { opacity: 1; }
+[data-theme="doctor"]  .bg-painting-doctor  { opacity: 1; }
+[data-theme="fashion"] .bg-painting-fashion  { opacity: 1; }
+[data-theme="literary"] .bg-painting-literary { opacity: 1; }
+[data-theme="electronics"] .bg-painting-electronics { opacity: 1; }
+[data-theme="aiLab"] .bg-painting-aiLab { opacity: 1; }
+
+/* Default (no theme set = neutral) */
+:root:not([data-theme]) .bg-painting-neutral { opacity: 1; }
+
+.bg-painting-grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -49;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity var(--theme-switch-duration) var(--ease-theme);
+}
+
+.bg-painting-grain-overlay.oscilloscope {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(74, 222, 128, 0.025),
+    rgba(74, 222, 128, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+[data-theme="electronics"] .bg-painting-grain-overlay.oscilloscope {
+  opacity: 1;
+}
+
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.dissector-code .hljs-keyword,
+.dissector-code .hljs-built_in {
+  color: hsl(var(--color-secondary));
+}
+
+.dissector-code .hljs-title,
+.dissector-code .hljs-title.function_,
+.dissector-code .hljs-property {
+  color: hsl(var(--color-accent));
+}
+
+.dissector-code .hljs-string,
+.dissector-code .hljs-template-variable {
+  color: hsl(var(--color-success));
+}
+
+.dissector-code .hljs-number,
+.dissector-code .hljs-literal {
+  color: hsl(var(--color-warning));
+}
+
+.dissector-code .hljs-attr,
+.dissector-code .hljs-variable,
+.dissector-code .hljs-params {
+  color: hsl(var(--color-foreground));
+}
+
+.dissector-code .hljs-comment {
+  color: hsl(var(--color-muted-foreground));
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
