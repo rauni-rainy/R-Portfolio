@@ -1,4 +1,4 @@
-# raunak.dev — Portfolio
+# raunak's dev Portfolio
 
 **A personal portfolio that refuses to be a portfolio.**
 
