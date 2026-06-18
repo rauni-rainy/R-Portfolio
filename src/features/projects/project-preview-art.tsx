@@ -66,6 +66,34 @@ function SevaSamagraArt({ isHovered }: { isHovered: boolean }) {
   );
 }
 
+function AIGatewayArt({ isHovered }: { isHovered: boolean }) {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-surface">
+      <motion.img
+        src="/assets/projects/ai-api-gateway-go-img.png"
+        alt="AI API Gateway Code Architecture"
+        className="h-full w-full object-cover object-top"
+        animate={{ scale: isHovered ? 1.05 : 1, opacity: isHovered ? 1 : 0.9 }}
+        transition={{ duration: 0.6, ease: ART_EASE }}
+      />
+    </div>
+  );
+}
+
+function PrakritiArt({ isHovered }: { isHovered: boolean }) {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-surface">
+      <motion.img
+        src="/assets/projects/genomics-eval.png"
+        alt="Prakriti Pharmacogenomics Platform"
+        className="h-full w-full object-cover object-top"
+        animate={{ scale: isHovered ? 1.05 : 1, opacity: isHovered ? 1 : 0.9 }}
+        transition={{ duration: 0.6, ease: ART_EASE }}
+      />
+    </div>
+  );
+}
+
 export function ProjectPreviewArt({ projectId, isHovered }: ProjectPreviewArtProps) {
   if (projectId === "akshar") {
     return <AksharArt isHovered={isHovered} />;
@@ -77,6 +105,14 @@ export function ProjectPreviewArt({ projectId, isHovered }: ProjectPreviewArtPro
 
   if (projectId === "literary-circle") {
     return <LiteraryArt isHovered={isHovered} />;
+  }
+
+  if (projectId === "ai-gateway") {
+    return <AIGatewayArt isHovered={isHovered} />;
+  }
+
+  if (projectId === "prakriti") {
+    return <PrakritiArt isHovered={isHovered} />;
   }
 
   return <SevaSamagraArt isHovered={isHovered} />;

@@ -11,6 +11,7 @@ const SKILLS_DATA: Omit<SkillNode, "currentX" | "currentY" | "phase">[] = [
   { id: "se", label: "Software Engineering", cluster: "core", x: 0.5, y: 0.58, context: "Principles of designing and building software systems", connections: ["algo", "git", "docker"] },
 
   // Languages
+  { id: "python", label: "Python", cluster: "languages", x: 0.3, y: 0.25, context: "Versatile high-level programming language", connections: ["fastapi", "dsa"] },
   { id: "c", label: "C", cluster: "languages", x: 0.35, y: 0.35, context: "Low-level system programming language", connections: ["cpp", "dsa"] },
   { id: "cpp", label: "C++", cluster: "languages", x: 0.45, y: 0.3, context: "Object-oriented systems programming", connections: ["c", "dsa"] },
   { id: "js", label: "JavaScript", cluster: "languages", x: 0.3, y: 0.45, context: "Core language of the web", connections: ["ts", "html", "react", "node"] },
@@ -26,6 +27,7 @@ const SKILLS_DATA: Omit<SkillNode, "currentX" | "currentY" | "phase">[] = [
   { id: "lenis", label: "Lenis", cluster: "frontend", x: 0.1, y: 0.75, context: "Smooth scrolling library", connections: ["framer"] },
   { id: "zustand", label: "Zustand", cluster: "frontend", x: 0.3, y: 0.7, context: "Small, fast state-management", connections: ["react"] },
   { id: "quill", label: "React Quill", cluster: "frontend", x: 0.25, y: 0.8, context: "Rich text editor for React", connections: ["react"] },
+  { id: "recharts", label: "Recharts", cluster: "frontend", x: 0.35, y: 0.75, context: "Composable charting library", connections: ["react"] },
 
   // Backend
   { id: "node", label: "Node.js", cluster: "backend", x: 0.65, y: 0.35, context: "JavaScript runtime for server-side apps", connections: ["js", "express", "socket", "pg", "mongo"] },

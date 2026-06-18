@@ -71,10 +71,18 @@ function ProjectPanel({
   
   const y = useTransform(scrollYProgress, inputRange, [34, 0, -24]);
   // For the first element, when progress is 0, it should be 1 (fully visible).
+  // For the last element, when progress is 1, it should stay at 1.
+  const opacityOutputRange = 
+    index === 0 
+      ? [1, 1, 0.4] 
+      : index === total - 1 
+        ? [0.45, 1, 1] 
+        : [0.45, 1, 0.45];
+
   const opacity = useTransform(
     scrollYProgress, 
     inputRange, 
-    index === 0 ? [1, 1, 0.4] : [0.45, 1, 0.45]
+    opacityOutputRange
   );
   const selectedKey = selectedMode ?? "neutral";
   const lens = modeLensCopy[selectedKey];
@@ -139,14 +147,16 @@ function ProjectPanel({
             >
               GitHub
             </a>
-            <a
-              href={project.liveHref}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-accent/40 bg-transparent px-6 py-3 font-mono text-[11px] font-medium uppercase tracking-widest text-foreground transition-all duration-300 ease-in-out hover:bg-accent/10 hover:border-accent hover:text-accent"
-            >
-              Live link
-            </a>
+            {project.liveHref && (
+              <a
+                href={project.liveHref}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-accent/40 bg-transparent px-6 py-3 font-mono text-[11px] font-medium uppercase tracking-widest text-foreground transition-all duration-300 ease-in-out hover:bg-accent/10 hover:border-accent hover:text-accent"
+              >
+                Live link
+              </a>
+            )}
             {project.hasDissector ? (
               <button
                 type="button"
