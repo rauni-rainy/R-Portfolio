@@ -4,6 +4,7 @@ import { DissectorSection } from "@/features/dissector";
 import { ProjectsSection } from "@/features/projects";
 import { SkillsSection } from "@/features/skills";
 import { SystemDesignSection } from "@/features/system-design";
+import { BlockchainSection } from "@/features/blockchain";
 import { ExperimentsSection } from "@/features/experiments";
 import { ManifestoSection } from "@/features/manifesto";
 import { ContactSection } from "@/features/contact";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <ProjectsSection />
       <DissectorSection />
       <SystemDesignSection />
+      <BlockchainSection />
       <ExperimentsSection />
       <ManifestoSection />
       <ContactSection />

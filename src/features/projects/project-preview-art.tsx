@@ -10,6 +10,20 @@ type ProjectPreviewArtProps = {
 
 const ART_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
+function VedaAIArt({ isHovered }: { isHovered: boolean }) {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-surface">
+      <motion.img
+        src="/assets/projects/veda-ai-assignment.png"
+        alt="VedaAI Dashboard Screenshot"
+        className="h-full w-full object-cover object-top"
+        animate={{ scale: isHovered ? 1.05 : 1, opacity: isHovered ? 1 : 0.9 }}
+        transition={{ duration: 0.6, ease: ART_EASE }}
+      />
+    </div>
+  );
+}
+
 function AksharArt({ isHovered }: { isHovered: boolean }) {
   return (
     <div className="relative h-full w-full overflow-hidden bg-surface">
@@ -95,6 +109,10 @@ function PrakritiArt({ isHovered }: { isHovered: boolean }) {
 }
 
 export function ProjectPreviewArt({ projectId, isHovered }: ProjectPreviewArtProps) {
+  if (projectId === "veda-ai") {
+    return <VedaAIArt isHovered={isHovered} />;
+  }
+
   if (projectId === "akshar") {
     return <AksharArt isHovered={isHovered} />;
   }

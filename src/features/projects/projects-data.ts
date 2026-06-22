@@ -1,4 +1,4 @@
-export type ProjectId = "akshar" | "contesthub" | "literary-circle" | "sevasamagra" | "ai-gateway" | "prakriti";
+export type ProjectId = "veda-ai" | "akshar" | "contesthub" | "literary-circle" | "sevasamagra" | "ai-gateway" | "prakriti";
 
 export type Project = {
   id: ProjectId;
@@ -14,6 +14,18 @@ export type Project = {
 };
 
 export const projects = [
+  {
+    id: "akshar",
+    title: "Akshar",
+    eyebrow: "Social publishing platform",
+    description:
+      "A dedicated platform for writers featuring a proprietary Structured Review Engine, multi-format publishing, and threaded discussions.",
+    tags: ["Next.js", "Tailwind v4", "PostgreSQL", "React Quill"],
+    githubHref: "https://github.com/rauni-rainy/Akshar",
+    liveHref: "https://akshar-hfs-projects-049a2beb.vercel.app",
+    status: "Soon to launch as a startup",
+    metric: "Structured Peer-Reviews"
+  },
   {
     id: "sevasamagra",
     title: "SevaSamagra AI",
@@ -40,6 +52,18 @@ export const projects = [
     hasDissector: true
   },
   {
+    id: "veda-ai",
+    title: "VedaAI",
+    eyebrow: "AI Assignment Creator",
+    description:
+      "An enterprise-grade AI-powered assignment generator utilizing Google Gemini and Puppeteer. Features an event-driven architecture with BullMQ, Redis, and WebSockets for non-blocking PDF generation, fully containerized on Google Cloud Run.",
+    tags: ["Next.js", "Node.js", "MongoDB", "Redis", "BullMQ", "Docker", "Puppeteer", "Google Gemini", "WebSockets"],
+    githubHref: "https://github.com/rauni-rainy/Assign-Ved",
+    liveHref: "https://veda-frontend-170572969444.us-central1.run.app/",
+    status: "Production OS",
+    metric: "Asynchronous AI Generation"
+  },
+  {
     id: "literary-circle",
     title: "Literary Circle Platform",
     eyebrow: "High-Performance Event Platform",
@@ -50,18 +74,6 @@ export const projects = [
     liveHref: "https://www.lcnitd.co.in/",
     status: "Event infrastructure",
     metric: "Cloudflare Secured"
-  },
-  {
-    id: "akshar",
-    title: "Akshar",
-    eyebrow: "Social publishing platform",
-    description:
-      "A dedicated platform for writers featuring a proprietary Structured Review Engine, multi-format publishing, and threaded discussions.",
-    tags: ["Next.js", "Tailwind v4", "PostgreSQL", "React Quill"],
-    githubHref: "https://github.com/rauni-rainy/Akshar",
-    liveHref: "https://akshar-hfs-projects-049a2beb.vercel.app",
-    status: "Publishing Ecosystem",
-    metric: "Structured Peer-Reviews"
   },
   {
     id: "ai-gateway",

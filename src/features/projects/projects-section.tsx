@@ -68,20 +68,20 @@ function ProjectPanel({
       : index === total - 1
         ? [0.7, 0.92, 1]
         : [Math.max(0, center - 0.2), center, Math.min(1, center + 0.2)];
-  
+
   const y = useTransform(scrollYProgress, inputRange, [34, 0, -24]);
   // For the first element, when progress is 0, it should be 1 (fully visible).
   // For the last element, when progress is 1, it should stay at 1.
-  const opacityOutputRange = 
-    index === 0 
-      ? [1, 1, 0.4] 
-      : index === total - 1 
-        ? [0.45, 1, 1] 
+  const opacityOutputRange =
+    index === 0
+      ? [1, 1, 0.4]
+      : index === total - 1
+        ? [0.45, 1, 1]
         : [0.45, 1, 0.45];
 
   const opacity = useTransform(
-    scrollYProgress, 
-    inputRange, 
+    scrollYProgress,
+    inputRange,
     opacityOutputRange
   );
   const selectedKey = selectedMode ?? "neutral";
@@ -177,7 +177,18 @@ function ProjectPanel({
           transition={{ duration: 0.5, ease: PROJECT_EASE }}
         >
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-border/20 bg-background/10 px-4 py-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
-            <span>{project.status}</span>
+            {project.status === "Soon to launch as a startup" ? (
+              <span className="flex items-center gap-1.5 rounded-full border border-amber-500/50 bg-amber-500/10 px-2 py-0.5 text-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.2)] animate-pulse">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                </span>
+                <span className="font-bold tracking-widest">{project.status}</span>
+
+              </span>
+            ) : (
+              <span>{project.status}</span>
+            )}
             <span className="text-accent">{project.metric}</span>
           </div>
 
@@ -245,7 +256,8 @@ export function ProjectsSection() {
       className="relative bg-transparent text-foreground h-auto lg:h-[var(--projects-height)]"
       style={{ '--projects-height': `${projects.length * 100}vh` } as React.CSSProperties}
     >
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @media (max-width: 1023px) {
           #projects { height: auto !important; }
           .mobile-no-transform { transform: none !important; }

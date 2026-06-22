@@ -51,6 +51,24 @@ export function HeroSection() {
           dissect
         </a>
         <a
+          href="#system-design"
+          className="text-foreground/50 transition-colors duration-300 hover:text-foreground"
+        >
+          system design
+        </a>
+        <a
+          href="#blockchain"
+          className="text-foreground/50 transition-colors duration-300 hover:text-foreground"
+        >
+          blockchain
+        </a>
+        <a
+          href="#framer-design"
+          className="text-foreground/50 transition-colors duration-300 hover:text-foreground"
+        >
+          framer design
+        </a>
+        <a
           href="#skills"
           className="text-foreground/50 transition-colors duration-300 hover:text-foreground"
         >
