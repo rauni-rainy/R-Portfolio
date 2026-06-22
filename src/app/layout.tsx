@@ -4,6 +4,7 @@ import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provi
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { BackgroundPainting } from "@/components/background-painting";
 import { CursorPhysics } from "@/components/cursor-physics";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({
           <BackgroundPainting />
           <CursorPhysics />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
